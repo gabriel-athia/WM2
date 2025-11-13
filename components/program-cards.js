@@ -1,20 +1,23 @@
+// components/program-cards.js
 "use client"
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import styles from "./program-card.module.css"
 
-const colorClassMap = {
-  blue: styles.blue,
-  red: styles.red,
-  green: styles.green,
-}
-
-export function ProgramCard({ title, icon, color = "blue", features = [], link }) {
+export function ProgramCard({
+  title,
+  icon,
+  color = "blue",
+  features = [],
+  link,
+}) {
   const cardRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    const element = cardRef.current
+    if (!element) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -30,31 +33,24 @@ export function ProgramCard({ title, icon, color = "blue", features = [], link }
       },
     )
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current)
-    }
+    observer.observe(element)
 
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current)
-      }
-    }
+    return () => observer.disconnect()
   }, [])
 
-  const colorClass = colorClassMap[color] ?? ""
+  const cardClasses = `programa-card ${isVisible ? "fade-in-up" : ""}`
+  const iconClasses = `card-icon ${color}`
+  const buttonClasses = `btn-saiba-mais ${color}`
 
   return (
-    <article
-      ref={cardRef}
-      className={`${styles.card} ${isVisible ? styles.cardVisible : ""} ${colorClass}`}
-    >
-      <header className={styles.header}>
-        {icon && <span className={styles.icon}>{icon}</span>}
-        <h3 className={styles.title}>{title}</h3>
+    <article ref={cardRef} className={cardClasses}>
+      <header className="card-header">
+        <div className={iconClasses}>{icon}</div>
+        <h3>{title}</h3>
       </header>
 
       {features.length > 0 && (
-        <ul className={styles.features}>
+        <ul className="card-features">
           {features.map((feature, index) => (
             <li key={index}>{feature}</li>
           ))}
@@ -62,9 +58,11 @@ export function ProgramCard({ title, icon, color = "blue", features = [], link }
       )}
 
       {link && (
-        <Link href={link} className={styles.link}>
-          Saiba mais
-        </Link>
+        <footer className="card-footer">
+          <Link href={link} className={buttonClasses}>
+            Saiba mais
+          </Link>
+        </footer>
       )}
     </article>
   )

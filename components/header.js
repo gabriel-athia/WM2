@@ -1,13 +1,13 @@
+// components/header.js
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
 export function Header() {
   const pathname = usePathname()
   const router = useRouter()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const navItems = [
     { label: "Início", href: "/" },
@@ -19,12 +19,12 @@ export function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".main-header")
-      if (header) {
-        if (window.scrollY > 50) {
-          header.classList.add("scrolled")
-        } else {
-          header.classList.remove("scrolled")
-        }
+      if (!header) return
+
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled")
+      } else {
+        header.classList.remove("scrolled")
       }
     }
 
@@ -41,21 +41,27 @@ export function Header() {
       <nav className="top-nav">
         <Link href="/" className="logo">
           <span className="logo-icon">🎓</span>
-          <strong>Instituto de Excelência</strong>
-          <small>Educação Superior</small>
+          <span>
+            <strong>Instituto de Excelência</strong>
+            <br />
+            <small>Educação Superior</small>
+          </span>
         </Link>
 
         <ul className="nav-menu">
           {navItems.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} className={pathname === item.href ? "active" : ""}>
+              <Link
+                href={item.href}
+                className={pathname === item.href ? "active" : undefined}
+              >
                 {item.label}
               </Link>
             </li>
           ))}
         </ul>
 
-        <button className="btn-inscricao" onClick={handleInscricao}>
+        <button type="button" className="btn-inscricao" onClick={handleInscricao}>
           Inscreva-se
         </button>
       </nav>

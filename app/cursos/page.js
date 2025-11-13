@@ -1,10 +1,9 @@
+// app/cursos/page.js
 "use client"
 
 import { useEffect, useState } from "react"
 import { HeroSection } from "@/components/hero-section"
 import { ProgramCard } from "@/components/program-cards"
-import { Sidebar } from "@/components/sidebar"
-import styles from "./page.module.css"
 
 export default function CursosPage() {
   const [graduacao, setGraduacao] = useState([])
@@ -17,68 +16,71 @@ export default function CursosPage() {
           fetch("/api/programas?categoria=graduacao"),
           fetch("/api/programas?categoria=tecnico"),
         ])
+
         const [gradData, tecData] = await Promise.all([
           resGrad.json(),
           resTec.json(),
         ])
+
         setGraduacao(gradData)
         setTecnico(tecData)
       } catch (err) {
         console.error("Erro ao buscar programas:", err)
       }
     }
+
     load()
   }, [])
 
   return (
-    <div className={styles.main}>
-      <div className={styles.content}>
-        <HeroSection
-          title="Nossos Cursos"
-          subtitle="Escolha a trilha ideal para o seu momento."
-          description="Do ensino técnico à graduação, oferecemos formações completas para você atuar com excelência no mercado."
-          actions={[
-            { label: "Voltar para a Home", href: "/", variant: "secondary" },
-            { label: "Fazer inscrição", href: "/inscricao", icon: "📝" },
-          ]}
-        />
+    <>
+      <HeroSection
+        title="Nossos Cursos"
+        subtitle="Escolha a trilha ideal para o seu momento."
+        description="Do ensino técnico à graduação, oferecemos formações completas para você atuar com excelência no mercado."
+        actions={[
+          { label: "Voltar para a Home", href: "/", variant: "secondary" },
+          { label: "Fazer inscrição", href: "/inscricao", icon: "📝" },
+        ]}
+      />
 
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Ensino Superior - Graduação</h2>
-          <div className={styles.grid}>
-            {graduacao.map((program) => (
-              <ProgramCard
-                key={program.id}
-                title={program.title}
-                icon={program.icon}
-                color={program.color}
-                features={program.features}
-                link={program.link}
-              />
-            ))}
-          </div>
-        </section>
+      <section className="section-header">
+        <h2>
+          <span className="bullet">🎓</span> Ensino Superior - Graduação
+        </h2>
+      </section>
 
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Ensino Técnico</h2>
-          <div className={styles.grid}>
-            {tecnico.map((program) => (
-              <ProgramCard
-                key={program.id}
-                title={program.title}
-                icon={program.icon}
-                color={program.color}
-                features={program.features}
-                link={program.link}
-              />
-            ))}
-          </div>
-        </section>
-      </div>
+      <section className="programas-grid">
+        {graduacao.map((program) => (
+          <ProgramCard
+            key={program.id}
+            title={program.title}
+            icon={program.icon}
+            color={program.color}
+            features={program.features}
+            link={program.link}
+          />
+        ))}
+      </section>
 
-      <aside className={styles.sidebarWrapper}>
-        <Sidebar />
-      </aside>
-    </div>
+      <section className="section-header" style={{ marginTop: "2.5rem" }}>
+        <h2>
+          <span className="bullet">📘</span> Ensino Técnico
+        </h2>
+      </section>
+
+      <section className="programas-grid">
+        {tecnico.map((program) => (
+          <ProgramCard
+            key={program.id}
+            title={program.title}
+            icon={program.icon}
+            color={program.color}
+            features={program.features}
+            link={program.link}
+          />
+        ))}
+      </section>
+    </>
   )
 }
