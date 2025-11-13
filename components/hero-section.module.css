@@ -1,0 +1,92 @@
+.hero {
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.title {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 60ch;
+  opacity: 0.85;
+}
+
+.actions {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Base de todos os botões */
+.buttonBase {
+  border-radius: 999px;
+  padding: 0.75rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.buttonBase:active {
+  transform: scale(0.97);
+}
+
+/* Variação primária (azul) */
+.primaryButton {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+.primaryButton:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+}
+
+/* Variação secundária (bordado, transparente) */
+.secondaryButton {
+  background: transparent;
+  color: #1f2933;
+  border-color: rgba(148, 163, 184, 0.8);
+}
+
+.secondaryButton:hover {
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.icon {
+  font-size: 1.1rem;
+}

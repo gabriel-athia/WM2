@@ -1,0 +1,40 @@
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 0.9fr);
+  gap: 2.5rem;
+  padding: 2.5rem clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.content {
+  min-width: 0;
+}
+
+.section {
+  margin-bottom: 2.25rem;
+}
+
+.sectionTitle {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.sidebarWrapper {
+  align-self: flex-start;
+}
+
+@media (max-width: 900px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebarWrapper {
+    order: -1;
+  }
+}
